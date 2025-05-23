@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${user.id == null} ? 'Add User' : 'Edit User'">User Form</title>
+</head>
+<body>
+<h1 th:text="${user.id == null} ? 'Add User' : 'Edit User'"></h1>
+
+<div th:if="${errorMessage}" style="color:red;">
+    <p th:text="${errorMessage}"></p>
+</div>
+
+<form th:action="${user.id == null} ? @{/web/users/add} : @{/web/users/edit/{id}(id=${user.id})}" th:object="${user}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    <label>Username: <input type="text" th:field="*{username}" required/></label><br>
+    <label>Email: <input type="email" th:field="*{email}" required/></label><br>
+    <label>Password: <input type="password" th:field="*{password}" required/></label><br>
+    <label>Role:
+        <select th:field="*{role}">
+            <option th:value="USER" th:text="'USER'"></option>
+            <option th:value="ADMIN" th:text="'ADMIN'"></option>
+            <option th:value="GUEST" th:text="'GUEST'"></option>
+        </select>
+    </label><br>
+    <button type="submit" th:text="${user.id == null} ? 'Add' : 'Update'"></button>
+    <a th:href="@{/web/users}">Cancel</a>
+</form>
+</body>
+</html>

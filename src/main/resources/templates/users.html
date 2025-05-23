@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+<table border="1" id="usersTable">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Role</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- JS заполнит -->
+  </tbody>
+</table>
+<div id="error" style="color:red;"></div>
+<script>
+  async function loadUsers() {
+    const token = sessionStorage.getItem('jwt');
+    const resp = await fetch('/api/users', {
+      headers: { 'Authorization': 'Bearer ' + token }
+    });
+    if (resp.ok) {
+      const users = await resp.json();
+      const tbody = document.querySelector('#usersTable tbody');
+      tbody.innerHTML = '';
+      users.forEach(user => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${user.id}</td><td>${user.username}</td><td>${user.email}</td><td>${user.role}</td>`;
+        tbody.appendChild(tr);
+      });
+    } else {
+      document.getElementById('error').innerText = 'Access denied or not authorized';
+    }
+  }
+  window.onload = loadUsers;
+</script>
+</body>
+</html>
