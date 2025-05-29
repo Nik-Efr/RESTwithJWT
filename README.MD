@@ -1,6 +1,5 @@
 1. Проект: REST API с JWT аутентификацией на Spring Boot
-   Веб-приложение с REST API и системой аутентификации на основе JWT токенов.
-
+  
 2. Собрать и запустить
    mvn clean package
    docker run --name postgres-jwt -e POSTGRES_PASSWORD=postgres -e POSTGRES_USER=postgres -e POSTGRES_DB=jwt -p 5433:5432 -d postgres:15
