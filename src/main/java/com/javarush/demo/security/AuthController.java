@@ -34,7 +34,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body("Email is already in use!");
         }
 
-        // Создаём пользователя с ролью USER и хешируем пароль
         UserDto userDto = UserDto.builder()
                 .username(signUpRequest.getUsername())
                 .email(signUpRequest.getEmail())

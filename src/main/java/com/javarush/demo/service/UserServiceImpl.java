@@ -69,7 +69,6 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(Long id, UserDto userDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        // Проверка уникальности email и username при изменении
         if (!user.getEmail().equals(userDto.getEmail()) && userRepository.existsByEmail(userDto.getEmail())) {
             throw new IllegalArgumentException("Пользователь с таким email уже существует");
         }
